@@ -1,0 +1,21 @@
+{
+    "name": "glpi-plugin/webauthn",
+    "description": "WebAuthn / FIDO2 passkeys for GLPI 11",
+    "license": "GPL-3.0-or-later",
+    "type": "glpi-plugin",
+    "require": {
+        "php": ">=8.2",
+        "web-auth/webauthn-lib": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GlpiPlugin\\Webauthn\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.2.99"
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{% extends 'layout/page_card_notlogged.html.twig' %}
+
+{% block header_block %}
+    {{ title|default('Verify with passkey') }}
+{% endblock %}
+
+{% block content_block %}
+    <div class="text-center" id="webauthn-auth-prompt"
+         data-plugin-base="{{ plugin_base }}"
+         data-csrf="{{ csrf_token }}"
+         data-redirect="{{ redirect }}">
+        <p>{{ __('Use your passkey to continue.', 'webauthn') }}</p>
+        <button type="button" class="btn btn-primary" id="webauthn_auth_btn">
+            {{ __('Verify with passkey', 'webauthn') }}
+        </button>
+        <div class="mt-3">
+            <a href="{{ totp_url }}">{{ __('Use authenticator app instead', 'webauthn') }}</a>
+        </div>
+        <div class="mt-2">
+            <a href="{{ login_url }}">{{ __('Cancel and return to login', 'webauthn') }}</a>
+        </div>
+        <div id="webauthn_error" class="alert alert-danger mt-3 d-none" role="alert"></div>
+    </div>
+{% endblock %}
+
+{% block javascript_block %}
+    <script>
+    document.getElementById('webauthn_auth_btn')?.addEventListener('click', () => {
+        const root = document.getElementById('webauthn-auth-prompt');
+        window.GlpiWebauthn?.authenticate({
+            pluginBase: root.dataset.pluginBase,
+            csrf: root.dataset.csrf,
+            redirect: root.dataset.redirect || '',
+            errorEl: document.getElementById('webauthn_error'),
+        });
+    });
+    </script>
+{% endblock %}

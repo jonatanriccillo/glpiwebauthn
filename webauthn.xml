@@ -1,0 +1,38 @@
+<root>
+    <name>WebAuthn</name>
+    <key>webauthn</key>
+    <state>stable</state>
+    <description>
+        <short>
+            <en>FIDO2 / passkey authentication for GLPI 11.</en>
+            <es>Autenticacion FIDO2 / passkeys para GLPI 11.</es>
+        </short>
+        <long>
+            <en>Register passkeys (Face ID, Touch ID, Windows Hello, security keys) as a second factor or passwordless login. Integrates with GLPI native TOTP, LDAP, CAS and SSO without replacing them.</en>
+            <es>Registra passkeys (Face ID, Touch ID, Windows Hello, llaves de seguridad) como segundo factor o login sin contrasena. Integra con TOTP nativo, LDAP, CAS y SSO de GLPI sin reemplazarlos.</es>
+        </long>
+    </description>
+    <homepage>https://github.com/jonatanriccillo/glpiwebauthn</homepage>
+    <authors>
+        <author>Jonatan Riccillo</author>
+    </authors>
+    <versions>
+        <version>
+            <num>1.0.0</num>
+            <compatibility>~11.0.0</compatibility>
+        </version>
+    </versions>
+    <langs>
+        <lang>en_GB</lang>
+        <lang>es_AR</lang>
+        <lang>es_ES</lang>
+    </langs>
+    <license>GPLv3</license>
+    <tags>
+        <en>
+            <tag>Authentication</tag>
+            <tag>Security</tag>
+            <tag>WebAuthn</tag>
+        </en>
+    </tags>
+</root>

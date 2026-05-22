@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: webauthn 1.0.0\n"
+"Language: en_GB\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "WebAuthn"
+msgstr "WebAuthn"
+
+msgid "Passkey"
+msgstr "Passkey"
+
+msgid "Passkeys"
+msgstr "Passkeys"
+
+msgid "Verify with passkey"
+msgstr "Verify with passkey"
+
+msgid "Add passkey"
+msgstr "Add passkey"
+
+msgid "No passkeys registered"
+msgstr "No passkeys registered"
+
+msgid "Sign in with passkey"
+msgstr "Sign in with passkey"

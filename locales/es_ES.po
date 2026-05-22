@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: webauthn 1.0.0\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "WebAuthn"
+msgstr "WebAuthn"
+
+msgid "Passkey"
+msgstr "Passkey"
+
+msgid "Passkeys"
+msgstr "Passkeys"
+
+msgid "WebAuthn is disabled by the administrator."
+msgstr "WebAuthn está deshabilitado por el administrador."
+
+msgid "Users register passkeys from their own Preferences tab."
+msgstr "Los usuarios registran passkeys desde su pestaña Preferencias."
+
+msgid "Passkey name"
+msgstr "Nombre de la passkey"
+
+msgid "e.g. Work iPhone"
+msgstr "ej. iPhone del trabajo"
+
+msgid "Add passkey"
+msgstr "Añadir passkey"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Created"
+msgstr "Creada"
+
+msgid "Last used"
+msgstr "Último uso"
+
+msgid "No passkeys registered"
+msgstr "No hay passkeys registradas"
+
+msgid "Revoke"
+msgstr "Revocar"
+
+msgid "Verify with passkey"
+msgstr "Verificar con passkey"
+
+msgid "Plugin disabled"
+msgstr "Plugin deshabilitado"
+
+msgid "Too many attempts"
+msgstr "Demasiados intentos"
+
+msgid "WebAuthn requires HTTPS."
+msgstr "WebAuthn requiere HTTPS."
+
+msgid "User not found"
+msgstr "Usuario no encontrado"
+
+msgid "Maximum number of passkeys reached."
+msgstr "Se alcanzó el máximo de passkeys permitidas."
+
+msgid "Passkey registration is not allowed for your profile."
+msgstr "Tu perfil no permite registrar passkeys."
+
+msgid "Registration challenge expired."
+msgstr "El desafío de registro ha expirado."
+
+msgid "Invalid attestation response."
+msgstr "Respuesta de registro no válida."
+
+msgid "Authentication challenge expired."
+msgstr "El desafío de autenticación ha expirado."
+
+msgid "Invalid assertion response."
+msgstr "Respuesta de autenticación no válida."
+
+msgid "Unknown passkey."
+msgstr "Passkey desconocida."
+
+msgid "Passkey clone detected."
+msgstr "Se detectó posible clonación de passkey."
+
+msgid "User not found for passkey."
+msgstr "No se encontró usuario para esta passkey."
+
+msgid "Invalid CSRF token"
+msgstr "Token CSRF no válido"
+
+msgid "Not authenticated"
+msgstr "No autenticado"
+
+msgid "Passkey name is required"
+msgstr "El nombre de la passkey es obligatorio"
+
+msgid "Configuration saved"
+msgstr "Configuración guardada"
+
+msgid "WebAuthn settings"
+msgstr "Configuración de WebAuthn"
+
+msgid "Enabled"
+msgstr "Habilitado"
+
+msgid "Mode"
+msgstr "Modo"
+
+msgid "Off"
+msgstr "Desactivado"
+
+msgid "Second factor (optional)"
+msgstr "Segundo factor (opcional)"
+
+msgid "Second factor (required when passkeys exist)"
+msgstr "Segundo factor (obligatorio si hay passkeys)"
+
+msgid "Passwordless allowed"
+msgstr "Permitir sin contraseña"
+
+msgid "Prompt priority"
+msgstr "Prioridad del aviso"
+
+msgid "Passkey first"
+msgstr "Passkey primero"
+
+msgid "Authenticator app first"
+msgstr "App autenticadora primero"
+
+msgid "MFA logic when TOTP and passkey both exist"
+msgstr "Lógica MFA cuando coexisten TOTP y passkey"
+
+msgid "Either passkey or TOTP"
+msgstr "Passkey o TOTP (uno basta)"
+
+msgid "Both required (strict)"
+msgstr "Ambos obligatorios (estricto)"
+
+msgid "Leave empty to derive from GLPI URL"
+msgstr "Dejar vacío para usar la URL de GLPI"
+
+msgid "Attestation"
+msgstr "Attestation"
+
+msgid "Require resident key"
+msgstr "Exigir clave residente"
+
+msgid "Max passkeys per user"
+msgstr "Máximo de passkeys por usuario"
+
+msgid "Rate limit (attempts)"
+msgstr "Límite de intentos"
+
+msgid "Rate limit window (seconds)"
+msgstr "Ventana del límite (segundos)"
+
+msgid "Use your passkey to continue."
+msgstr "Usa tu passkey para continuar."
+
+msgid "Use authenticator app instead"
+msgstr "Usar app autenticadora"
+
+msgid "Cancel and return to login"
+msgstr "Cancelar y volver al inicio de sesión"
+
+msgid "PHP openssl extension is required."
+msgstr "Se requiere la extensión openssl de PHP."
+
+msgid "WebAuthn administration"
+msgstr "Administración de WebAuthn"
+
+msgid "Passkey policy"
+msgstr "Política de passkeys"
+
+msgid "Allow passkeys for this profile"
+msgstr "Permitir passkeys en este perfil"
+
+msgid "Require passkey registration"
+msgstr "Exigir registro de passkey"
+
+msgid "Passkeys are not supported in this browser."
+msgstr "Este navegador no admite passkeys."
+
+msgid "Or sign in with a passkey"
+msgstr "O inicia sesión con passkey"
+
+msgid "Sign in with passkey"
+msgstr "Iniciar sesión con passkey"
