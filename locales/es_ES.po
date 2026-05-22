@@ -103,6 +103,15 @@ msgstr "Configuración guardada"
 msgid "WebAuthn settings"
 msgstr "Configuración de WebAuthn"
 
+msgid "Run composer install in the plugin directory."
+msgstr "Ejecuta composer install en el directorio del plugin."
+
+msgid "Creating WebAuthn configuration table"
+msgstr "Creando tabla de configuración WebAuthn"
+
+msgid "Creating WebAuthn profile rules table"
+msgstr "Creando tabla de reglas de perfil WebAuthn"
+
 msgid "Enabled"
 msgstr "Habilitado"
 
@@ -121,8 +130,8 @@ msgstr "Segundo factor (obligatorio si hay passkeys)"
 msgid "Passwordless allowed"
 msgstr "Permitir sin contraseña"
 
-msgid "Prompt priority"
-msgstr "Prioridad del aviso"
+msgid "Second factor order"
+msgstr "Orden del segundo factor"
 
 msgid "Passkey first"
 msgstr "Passkey primero"
@@ -130,8 +139,8 @@ msgstr "Passkey primero"
 msgid "Authenticator app first"
 msgstr "App autenticadora primero"
 
-msgid "MFA logic when TOTP and passkey both exist"
-msgstr "Lógica MFA cuando coexisten TOTP y passkey"
+msgid "Second factor rules (TOTP and passkey)"
+msgstr "Reglas con TOTP y passkey"
 
 msgid "Either passkey or TOTP"
 msgstr "Passkey o TOTP (uno basta)"

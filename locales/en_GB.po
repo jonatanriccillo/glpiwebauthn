@@ -25,3 +25,12 @@ msgstr "No passkeys registered"
 
 msgid "Sign in with passkey"
 msgstr "Sign in with passkey"
+
+msgid "Run composer install in the plugin directory."
+msgstr "Run composer install in the plugin directory."
+
+msgid "Creating WebAuthn configuration table"
+msgstr "Creating WebAuthn configuration table"
+
+msgid "Creating WebAuthn profile rules table"
+msgstr "Creating WebAuthn profile rules table"

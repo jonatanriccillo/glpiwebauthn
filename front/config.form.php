@@ -25,6 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $save[$f] = (string) $_POST[$f];
         }
     }
+    if (($save['mode'] ?? '') === 'off') {
+        $save['enabled'] = '0';
+    }
+
     PluginWebauthnConfig::saveMany($save);
     Session::addMessageAfterRedirect(__('Configuration saved', 'webauthn'), false, INFO);
     Html::back();
@@ -57,14 +61,14 @@ Dropdown::showFromArray('mode', [
 ], ['value' => $cfg['mode'] ?? 'second_factor_optional']);
 echo "</td></tr>";
 
-echo "<tr class='tab_bg_1'><td>" . __('Prompt priority', 'webauthn') . "</td><td>";
+echo "<tr class='tab_bg_1'><td>" . __('Second factor order', 'webauthn') . "</td><td>";
 Dropdown::showFromArray('prompt_priority', [
     'webauthn_first' => __('Passkey first', 'webauthn'),
     'totp_first'     => __('Authenticator app first', 'webauthn'),
 ], ['value' => $cfg['prompt_priority'] ?? 'webauthn_first']);
 echo "</td></tr>";
 
-echo "<tr class='tab_bg_1'><td>" . __('MFA logic when TOTP and passkey both exist', 'webauthn') . "</td><td>";
+echo "<tr class='tab_bg_1'><td>" . __('Second factor rules (TOTP and passkey)', 'webauthn') . "</td><td>";
 Dropdown::showFromArray('mfa_logic', [
     'or'  => __('Either passkey or TOTP', 'webauthn'),
     'and' => __('Both required (strict)', 'webauthn'),

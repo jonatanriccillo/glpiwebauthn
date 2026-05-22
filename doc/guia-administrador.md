@@ -1,45 +1,39 @@
 # Guía del administrador
 
-## Puesta en marcha recomendada
+## Puesta en marcha
 
-1. Instalá el plugin y dependencias ([instalacion.md](instalacion.md)).
-2. Configurá **RP ID** con el dominio real de producción.
-3. Activá el plugin en modo **Segundo factor (opcional)** para una prueba piloto.
-4. Asigná **WebAuthn → Lectura/Actualizar** solo a perfiles de soporte si deben revocar credenciales ajenas.
-5. Registrá una passkey de prueba con un usuario admin.
-6. Validá login completo (contraseña + passkey) y revocación.
+1. Instale el plugin ([instalacion.md](instalacion.md)).
+2. Deje RP ID vacío salvo dominio distinto al de GLPI.
+3. Active modo **Segundo factor (opcional)** para piloto.
+4. Asigne derechos de lectura/actualización solo a perfiles que revoquen credenciales ajenas.
+5. Registre una passkey de prueba y valide login y revocación.
 
-## Revocar passkeys de un usuario
+## Revocación
 
-1. **Administración → Usuarios** → elegí el usuario.
-2. Pestaña **Passkeys**.
-3. **Revocar** en la credencial comprometida o obsoleta.
+**Administración → Usuarios** → usuario → pestaña **Passkeys** → **Revocar**.
 
-Los usuarios también pueden revocar las propias desde Preferencias.
+Los usuarios pueden revocar las propias en Preferencias.
 
 ## Auditoría
 
-- Tabla `glpi_plugin_webauthn_credentials`: nombre, fechas de creación y último uso, estado activo.
-- Logs de GLPI y del servidor web para errores 4xx en rutas `/plugins/webauthn/`.
+- Registros en `glpi_plugin_webauthn_credentials` (nombre, fechas, estado).
+- Logs del servidor web ante errores 4xx en la URL del plugin.
 
-## Escenarios por tipo de autenticación primaria
+## Autenticación primaria
 
-| Método primario | Impacto del plugin |
-|-----------------|-------------------|
-| Local GLPI | Sin cambios; MFA passkey después de contraseña |
-| LDAP / AD | Sin cambios en bind LDAP; MFA igual |
-| CAS / SSO | Sin cambios en el IdP; MFA en GLPI tras retorno |
+| Método | Efecto |
+|--------|--------|
+| Local GLPI | Passkey como segundo factor |
+| LDAP / AD | Sin cambio en LDAP |
+| CAS / SSO | Segundo factor en GLPI tras el IdP |
 | OAuth | Igual que SSO |
 
-No se sustituye la contraseña corporativa salvo en modo **passwordless** explícito.
+Passwordless solo si el modo lo habilita explícitamente.
 
 ## Desactivación de emergencia
 
-1. Desactivá el interruptor **Activado** en configuración WebAuthn, **o**
-2. Desactivá el plugin en **Configuración → Plugins**.
+Desactive **Activado** en WebAuthn, o desinstale/desactive el plugin en **Configuración → Plugins**.
 
-Los usuarios podrán seguir entrando con TOTP/contraseña según la configuración nativa de GLPI.
+## Actualización
 
-## Actualización de versión
-
-Ver [despliegue.md](despliegue.md). Tras copiar archivos nuevos, ejecutá migraciones reinstalando o usando el botón de actualización del plugin si aplica.
+[instalacion.md](instalacion.md#actualización)

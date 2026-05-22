@@ -21,7 +21,7 @@ final class AuthenticationController extends AbstractController
     #[SecurityStrategy(Firewall::STRATEGY_NO_CHECK)]
     public function prompt(Request $request): Response
     {
-        if (!\PluginWebauthnConfig::isEnabled()) {
+        if (!\PluginWebauthnConfig::isOperational()) {
             return $this->redirectToLogin();
         }
 
@@ -72,7 +72,7 @@ HTML;
     #[SecurityStrategy(Firewall::STRATEGY_NO_CHECK)]
     public function options(Request $request): JsonResponse
     {
-        if (!\PluginWebauthnConfig::isEnabled()) {
+        if (!\PluginWebauthnConfig::isOperational()) {
             return new JsonResponse(['error' => __('Plugin disabled', 'webauthn')], 403);
         }
 
@@ -108,7 +108,7 @@ HTML;
     #[SecurityStrategy(Firewall::STRATEGY_NO_CHECK)]
     public function verify(Request $request): JsonResponse
     {
-        if (!\PluginWebauthnConfig::isEnabled()) {
+        if (!\PluginWebauthnConfig::isOperational()) {
             return new JsonResponse(['error' => __('Plugin disabled', 'webauthn')], 403);
         }
 

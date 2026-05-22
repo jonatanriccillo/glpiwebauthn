@@ -8,7 +8,7 @@
 use Glpi\Http\Firewall;
 use Glpi\Plugin\Hooks;
 
-define('PLUGIN_WEBAUTHN_VERSION', '1.0.0');
+define('PLUGIN_WEBAUTHN_VERSION', '1.0.1');
 define('PLUGIN_WEBAUTHN_MIN_GLPI', '11.0.0');
 define('PLUGIN_WEBAUTHN_MAX_GLPI', '11.9.99');
 
@@ -44,13 +44,11 @@ function plugin_init_webauthn(): void
     $PLUGIN_HOOKS[Hooks::POST_INIT]['webauthn']     = 'plugin_webauthn_post_init';
     $PLUGIN_HOOKS[Hooks::DISPLAY_LOGIN]['webauthn'] = 'plugin_webauthn_display_login';
     $PLUGIN_HOOKS['item_update']['webauthn']        = ['PluginWebauthnProfile', 'itemUpdate'];
-
-    $PLUGIN_HOOKS['add_javascript']['webauthn'] = ['public/webauthn.js'];
 }
 
 function plugin_webauthn_post_init(): void
 {
-    if (!PluginWebauthnConfig::isEnabled()) {
+    if (!PluginWebauthnConfig::isOperational()) {
         return;
     }
 
@@ -61,7 +59,7 @@ function plugin_webauthn_post_init(): void
 
 function plugin_webauthn_display_login(): void
 {
-    if (!PluginWebauthnConfig::isEnabled()) {
+    if (!PluginWebauthnConfig::isOperational()) {
         return;
     }
 
@@ -113,5 +111,13 @@ function plugin_webauthn_check_prerequisites(): bool
 
 function plugin_webauthn_check_config($verbose = false): bool
 {
-    return file_exists(__DIR__ . '/vendor/autoload.php');
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        return true;
+    }
+
+    if ($verbose) {
+        echo __('Run composer install in the plugin directory.', 'webauthn');
+    }
+
+    return false;
 }

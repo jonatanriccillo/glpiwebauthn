@@ -126,7 +126,7 @@ class PluginWebauthnCredential extends CommonDBTM
             return;
         }
 
-        if (!PluginWebauthnConfig::isEnabled()) {
+        if (!PluginWebauthnConfig::isOperational()) {
             echo "<div class='alert alert-info'>" . __('WebAuthn is disabled by the administrator.', 'webauthn') . '</div>';
             return;
         }
@@ -152,7 +152,7 @@ class PluginWebauthnCredential extends CommonDBTM
     {
         global $CFG_GLPI;
 
-        if (!PluginWebauthnConfig::isEnabled()) {
+        if (!PluginWebauthnConfig::isOperational()) {
             echo "<div class='alert alert-info'>" . __('WebAuthn is disabled by the administrator.', 'webauthn') . '</div>';
             return;
         }

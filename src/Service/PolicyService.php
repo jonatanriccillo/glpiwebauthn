@@ -8,7 +8,7 @@ final class PolicyService
 {
     public static function userMayRegister(int $users_id): bool
     {
-        if (!\PluginWebauthnConfig::isEnabled()) {
+        if (!\PluginWebauthnConfig::isOperational()) {
             return false;
         }
 
@@ -29,7 +29,7 @@ final class PolicyService
 
     public static function isEnforcedForUser(int $users_id): bool
     {
-        if (!\PluginWebauthnConfig::isEnabled()) {
+        if (!\PluginWebauthnConfig::isOperational()) {
             return false;
         }
 
@@ -52,6 +52,26 @@ final class PolicyService
         return \PluginWebauthnCredential::countActiveForUser($users_id) > 0;
     }
 
+    public static function userHasTotp(int $users_id): bool
+    {
+        $totp = new \Glpi\Security\TOTPManager();
+
+        return $totp->is2FAEnabled($users_id);
+    }
+
+    public static function shouldRedirectToPasskeyPrompt(int $users_id): bool
+    {
+        if (\PluginWebauthnCredential::countActiveForUser($users_id) === 0) {
+            return false;
+        }
+
+        if (self::shouldUseWebAuthnFirst($users_id)) {
+            return true;
+        }
+
+        return self::requiresSecondFactor($users_id) && !self::userHasTotp($users_id);
+    }
+
     public static function requiresSecondFactor(int $users_id): bool
     {
         $mode = \PluginWebauthnConfig::get('mode', 'second_factor_optional');
@@ -72,7 +92,7 @@ final class PolicyService
 
     public static function passwordlessAllowed(): bool
     {
-        if (!\PluginWebauthnConfig::isEnabled()) {
+        if (!\PluginWebauthnConfig::isOperational()) {
             return false;
         }
 

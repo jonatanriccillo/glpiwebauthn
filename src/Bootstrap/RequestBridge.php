@@ -40,11 +40,7 @@ final class RequestBridge
             return;
         }
 
-        if (!PolicyService::shouldUseWebAuthnFirst($users_id)) {
-            return;
-        }
-
-        if (\PluginWebauthnCredential::countActiveForUser($users_id) === 0) {
+        if (!PolicyService::shouldRedirectToPasskeyPrompt($users_id)) {
             return;
         }
 
@@ -63,11 +59,6 @@ final class RequestBridge
             return;
         }
 
-        if (!self::isWebAuthnSupported()) {
-            echo "<p class='text-muted small'>" . __('Passkeys are not supported in this browser.', 'webauthn') . '</p>';
-            return;
-        }
-
         global $CFG_GLPI;
         $base = \Plugin::getWebDir('webauthn');
 
@@ -80,11 +71,6 @@ final class RequestBridge
         echo __('Sign in with passkey', 'webauthn');
         echo '</button></div>';
         echo Html::script($base . '/public/webauthn.js');
-    }
-
-    public static function isWebAuthnSupported(): bool
-    {
-        return true;
     }
 
     public static function currentPath(): string
@@ -104,31 +90,4 @@ final class RequestBridge
         return $path;
     }
 
-    public static function completeLogin(int $users_id, bool $remember_me = false, bool $noauto = false): void
-    {
-        global $CFG_GLPI;
-
-        $_SESSION['mfa_pre_auth'] = [
-            'user_id'     => $users_id,
-            'username'    => self::usernameForUser($users_id),
-            'remember_me' => $remember_me,
-            'noauto'      => $noauto,
-            'redirect'    => $_REQUEST['redirect'] ?? ($_GET['redirect'] ?? null),
-        ];
-        $_SESSION['mfa_success'] = true;
-        unset($_SESSION['webauthn_prompt_shown']);
-
-        $redirect = $_SESSION['mfa_pre_auth']['redirect'] ?? '';
-        $qs       = $redirect !== '' ? ('?redirect=' . rawurlencode((string) $redirect)) : '';
-        Html::redirect($CFG_GLPI['root_doc'] . '/front/login.php' . $qs);
-    }
-
-    private static function usernameForUser(int $users_id): string
-    {
-        $user = new \User();
-        if ($user->getFromDB($users_id)) {
-            return (string) ($user->fields['name'] ?? '');
-        }
-        return '';
-    }
 }

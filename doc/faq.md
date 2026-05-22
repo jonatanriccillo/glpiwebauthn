@@ -1,53 +1,52 @@
-# Preguntas frecuentes y solución de problemas
+# Preguntas frecuentes
 
-## El botón de passkey en login no hace nada
+## El botón de passkey en login no responde
 
-- Forzá recarga (**Ctrl+F5**).
-- Verificá en F12 → **Red** que se cargue `webauthn.js` sin 404.
-- Comprobá que el plugin esté **activado** y el modo permita passwordless u opcional.
-- En modo no-passwordless, ingresá **usuario GLPI** antes del botón si la passkey no es residente.
+- Recargue la página sin caché.
+- Confirme que `webauthn.js` carga sin error 404 (herramientas de desarrollo del navegador, pestaña Red).
+- Plugin activado y modo que permita passkey en login.
+- Si la passkey no es residente, ingrese el usuario GLPI antes del botón.
 
 ## Aparece el texto `true` como error
 
-Suele ser una respuesta API mal formada. Revisá en F12 → **Red** el cuerpo de `/auth/options` o `/register/verify` y actualizá el plugin a la última versión publicada.
+Respuesta API incorrecta. Revise la petición fallida en la pestaña Red y actualice el plugin.
 
-## `Authentication challenge expired` o `Registration challenge expired`
+## Challenge expirado (registro o autenticación)
 
-- Pasó el tiempo de expiración (~5 minutos) entre el inicio y la confirmación.
-- La sesión no se mantuvo entre las dos peticiones (otra pestaña, cookies bloqueadas, proxy que rompe sesión).
-- Solución: recargar la página, usar HTTPS y el mismo dominio que al registrar la passkey.
+- Más de unos minutos entre inicio y confirmación.
+- Sesión interrumpida (otra pestaña, cookies bloqueadas, proxy).
+- Use HTTPS y el mismo dominio que al registrar la passkey.
 
-## Error 403 / Token CSRF inválido
+## Error 403 / CSRF inválido
 
-- Recargá la página para obtener un token nuevo.
-- No abras el flujo en varias pestañas a la vez.
-- Comprobá que no haya extensiones del navegador que bloqueen cookies de sesión.
+- Recargue la página.
+- No abra el flujo en varias pestañas.
+- Revise extensiones que bloqueen cookies.
 
-## No pide huella al iniciar sesión
+## No solicita verificación biométrica
 
-- En modo con contraseña, ingresá **usuario GLPI** antes del botón de passkey si la credencial no es residente.
-- Activá modo **passwordless** o **clave residente** si querés elegir la passkey sin escribir usuario.
-- Verificá que el usuario tenga passkeys registradas.
+- Ingrese usuario GLPI antes del botón si la passkey no es residente.
+- Modo passwordless o clave residente según política.
+- Usuario con passkeys registradas.
 
-## Passkey registrada pero login falla
+## Passkey registrada pero el login falla
 
-- RP ID distinto al dominio actual.
-- La passkey se registró en otro hostname (prueba vs producción).
-- Reloj del servidor muy desincronizado (afecta TOTP; menos común en WebAuthn).
+- RP ID o dominio distinto al de registro.
+- Entorno de prueba vs producción con hostname distinto.
+- Reloj del servidor desincronizado (afecta TOTP).
 
-## Plugin “no configurado”
+## Plugin no configurado
 
-Ejecutá `composer install` dentro del plugin y comprobá `vendor/autoload.php`.
+Ejecute `composer install` en el directorio del plugin si falta `vendor/autoload.php`.
 
 ## Solo funciona en localhost
 
-En producción hace falta **HTTPS** válido y RP ID correcto.
+En producción se requiere HTTPS. RP ID suele resolverse automáticamente.
 
-## LDAP / SSO deja de funcionar
+## LDAP o SSO deja de funcionar
 
-El plugin no debe tocar el login primario. Si ocurre, desactivá el plugin y reportá el caso con logs; revisá hooks en `setup.php`.
+El login primario no debe verse afectado. Desactive el plugin y revise logs de GLPI y del servidor web.
 
-## Dónde pedir ayuda
+## Reporte de incidencias
 
-- Issues: [github.com/jonatanriccillo/glpiwebauthn](https://github.com/jonatanriccillo/glpiwebauthn/issues)
-- Incluí versión GLPI, versión del plugin, navegador, modo configurado y captura de la petición fallida (sin datos personales).
+Indique versión de GLPI, versión del plugin, navegador, modo configurado y el mensaje de error (sin datos personales).

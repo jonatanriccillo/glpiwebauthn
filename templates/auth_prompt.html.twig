@@ -24,6 +24,7 @@
 {% endblock %}
 
 {% block javascript_block %}
+    <script src="{{ plugin_base }}/public/webauthn.js"></script>
     <script>
     document.getElementById('webauthn_auth_btn')?.addEventListener('click', () => {
         const root = document.getElementById('webauthn-auth-prompt');

@@ -1,61 +1,50 @@
 # Configuración
 
-## Panel global
-
-**Configuración → WebAuthn** (o `plugins/webauthn/front/config.form.php`).
+Panel: **Configuración → WebAuthn**.
 
 | Parámetro | Descripción |
 |-----------|-------------|
-| **Activado** | Interruptor maestro del plugin |
-| **Modo** | Ver tabla siguiente |
-| **Prioridad del prompt** | Tras login con contraseña/LDAP: mostrar passkey antes que TOTP o al revés |
-| **Lógica MFA** | `OR`: basta passkey **o** TOTP. `AND`: ambos obligatorios si el usuario tiene TOTP |
-| **RP ID** | Dominio WebAuthn (ver [instalacion.md](instalacion.md)) |
-| **RP Name** | Nombre mostrado al registrar la passkey |
-| **Attestation** | `none` (recomendado), `indirect` o `direct` |
-| **Exigir clave residente** | Passkey almacenada en el autenticador (permite selector en login sin usuario) |
-| **Máx. passkeys por usuario** | Límite de credenciales activas |
-| **Rate limit** | Intentos máximos y ventana en segundos (registro y login) |
+| Activado | Habilita o deshabilita el plugin |
+| Modo | Ver modos más abajo |
+| Orden del segundo factor | Tras el login primario: passkey antes que TOTP, o al revés |
+| Reglas con TOTP y passkey | Passkey o TOTP alcanza, o ambos obligatorios si el usuario tiene TOTP |
+| RP ID | Opcional; vacío usa el hostname de la URL de GLPI |
+| RP Name | Nombre mostrado al registrar la passkey |
+| Attestation | `none` (recomendado), `indirect` o `direct` |
+| Exigir clave residente | Passkey discoverable; permite login sin escribir usuario |
+| Máx. passkeys por usuario | Límite de credenciales activas |
+| Rate limit | Intentos máximos y ventana en segundos |
 
-### Modos de operación
+## Modos
 
 | Modo | Comportamiento |
 |------|----------------|
-| **Desactivado** | El plugin está instalado pero no participa en login ni MFA |
-| **Segundo factor (opcional)** | Tras autenticación primaria, se puede usar passkey o TOTP; botón passwordless en login si hay passkeys compatibles |
-| **Segundo factor (obligatorio)** | Si el usuario tiene passkeys registradas, debe completar WebAuthn en el flujo MFA |
-| **Passwordless** | Permite login solo con passkey (y políticas de perfil); suele requerir claves residentes |
+| Desactivado | Instalado pero sin participar en login ni segundo factor |
+| Segundo factor (opcional) | Passkey o TOTP tras el login primario; passwordless en login si aplica |
+| Segundo factor (obligatorio) | Passkey obligatoria si el usuario tiene credenciales registradas |
+| Passwordless | Login solo con passkey según perfil; suele requerir clave residente |
 
-## Políticas por perfil
+## Perfiles
 
-En cada **Perfil → pestaña WebAuthn**:
+En **Administración → Perfiles → WebAuthn**:
 
-- **Permitir passkeys**: los usuarios de ese perfil pueden registrar passkeys.
-- **Exigir registro de passkey**: refuerzo de política (según implementación de perfil).
+- Permitir passkeys
+- Exigir registro de passkey
 
-Combiná con derechos GLPI del plugin.
+## Derechos del plugin
 
-## Derecho `plugin_webauthn`
+| Derecho | Uso |
+|---------|-----|
+| Lectura | Ver passkeys en la ficha de usuario |
+| Actualizar | Revocar passkeys de otros usuarios |
+| Configuración | Panel global WebAuthn |
 
-| Nivel | Uso |
-|-------|-----|
-| **Lectura** | Ver passkeys de usuarios (pestaña en ficha Usuario) |
-| **Actualizar** | Revocar passkeys de otros usuarios |
-| **Configuración** | Acceso al panel global (suele reservarse a administradores) |
+Los usuarios registran las propias passkeys en **Preferencias** sin estos derechos.
 
-Los usuarios finales registran sus propias passkeys en **Preferencias** sin necesidad de este derecho de administración.
+## TOTP de GLPI
 
-## Coexistencia con TOTP nativo de GLPI
-
-El plugin **no reemplaza** LDAP, CAS, OAuth ni la contraseña local. Solo interviene en la fase MFA:
-
-1. El usuario se autentica con el método primario habitual.
-2. GLPI deja la sesión en `mfa_pre_auth`.
-3. Según prioridad, redirige a passkey (`/plugins/webauthn/auth/prompt`) o al TOTP nativo (`/MFA/Prompt`).
-4. Tras éxito, se marca `mfa_success` y se completa el login en `front/login.php`.
-
-Con **lógica OR**, un solo factor satisfactorio (passkey **o** TOTP) alcanza. Con **AND**, si el usuario tiene TOTP habilitado, debe completar ambos.
+El plugin no sustituye LDAP, CAS, OAuth ni contraseña local. Interviene solo en el segundo factor: tras el login primario, GLPI solicita passkey o TOTP según el orden y las reglas configuradas.
 
 ## HTTPS
 
-Obligatorio en producción. Detrás de proxy inverso, verificá que PHP detecte HTTPS (`X-Forwarded-Proto: https`) o WebAuthn rechazará la operación.
+Obligatorio en producción. Con proxy inverso, el servidor debe exponer HTTPS a PHP (por ejemplo cabecera `X-Forwarded-Proto: https`).

@@ -70,6 +70,11 @@ class PluginWebauthnConfig extends CommonDBTM
         return (int) self::get('enabled', '0') === 1;
     }
 
+    public static function isOperational(): bool
+    {
+        return self::isEnabled() && self::get('mode', 'second_factor_optional') !== 'off';
+    }
+
     public static function set(string $key, string $value): bool
     {
         global $DB;

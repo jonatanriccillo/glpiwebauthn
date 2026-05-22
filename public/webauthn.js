@@ -295,7 +295,6 @@
         return document.getElementById('webauthn_login_error');
     }
 
-    /** Clicks on login + preference UI (works after ajax tab load). */
     function bindClickDelegation() {
         document.addEventListener('click', (ev) => {
             const loginBtn = ev.target.closest('#webauthn_passwordless_btn');
